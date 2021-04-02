@@ -34,7 +34,7 @@ if uploaded_file is not None:
     st.image(knife_img, width=150)
     st.write(result)
     st.write(result_detail)
-    correct_button = st.selectbox("Did we get this right?", ["Yes", "No"])
+    correct_button = st.radio("Did we get this right?", ["Yes", "No"])
     if correct_button == "Yes":
         st.write("We're always trying to improve...can we use this picture to improve our results?")
         if st.button('Send Us The Picture!'):
