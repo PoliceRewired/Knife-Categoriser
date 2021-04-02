@@ -7,7 +7,9 @@ from fastai.vision.all import *
 from fastai.vision.widgets import *
 import os
 from ftpretty import ftpretty
-
+hostname = os.getenv("hostname")
+username = os.getenv("username")
+password = os.getenv("password")
 
 learn_inf = load_learner('export.pkl')
 
@@ -40,7 +42,7 @@ if uploaded_file is not None:
         st.write("We're always trying to improve...can we use this picture to improve our results?")
         if st.button('Send Us The Picture!'):
             st.write("Thanks for the feedback! We'll try harder to get it right next time.")
-            f = ftpretty(os.environ['hostname'], os.environ['username'], os.environ['password'])
+            f = ftpretty(hostname, username, password)
             f.put(knife_img, str(result) + "/")
             f.close()
     if correct_button == "No":
@@ -52,7 +54,7 @@ if uploaded_file is not None:
                 st.write("We're always trying to improve...can we use this picture to improve our results?")
                 if st.button('Send Us The Picture!'):
                     st.write("Thanks for the feedback! We'll try harder to get it right next time.")
-                    f = ftpretty(os.environ['hostname'], os.environ['username'], os.environ['password'])
+                    f = ftpretty(hostname, username, password)
                     f.put(knife_img, str(correct_option) + "/")
                     f.close()
 
