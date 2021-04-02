@@ -43,8 +43,7 @@ if uploaded_file is not None:
         if st.button('Send Us The Picture!'):
             st.write("Thanks for the feedback! We'll try harder to get it right next time.")
             f = ftpretty(hostname, username, password)
-            myfile = open(uploaded_file, 'r')
-            f.put(myfile, str(result) + "/")
+            f.put(uploaded_file.getbuffer(), str(result) + "/")
             f.close()
     if correct_button == "No":
         correct_option = st.radio("Oh no! I'm always trying to improve...can you tell me which of the below it was?",["Butterfly Knife", "Pocket Knife", "Machete", "Bayonet or Combat Knife","Kitchen Knife", "Other"])
@@ -56,7 +55,7 @@ if uploaded_file is not None:
                 if st.button('Send Us The Picture!'):
                     st.write("Thanks for the feedback! We'll try harder to get it right next time.")
                     f = ftpretty(hostname, username, password)
-                    myfile = open(uploaded_file.read(), 'r')
+                    myfile = open(uploaded_file.getbuffer(), 'r')
                     f.put(myfile, str(correct_option) + "/")
                     f.close()
 
