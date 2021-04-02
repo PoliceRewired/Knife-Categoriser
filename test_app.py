@@ -5,7 +5,8 @@ import numpy as np
 import pandas as pd
 from fastai.vision.all import *
 from fastai.vision.widgets import *
-
+import os
+from ftpretty import ftpretty
 
 
 learn_inf = load_learner('export.pkl')
@@ -39,6 +40,9 @@ if uploaded_file is not None:
         st.write("We're always trying to improve...can we use this picture to improve our results?")
         if st.button('Send Us The Picture!'):
             st.write("Thanks for the feedback! We'll try harder to get it right next time.")
+            f = ftpretty(os.environ['hostname'], os.environ['username'], os.environ['password'])
+            f.put(knife_img, str(result) + "/")
+            f.close()
     if correct_button == "No":
         correct_option = st.radio("Oh no! I'm always trying to improve...can you tell me which of the below it was?",["Butterfly Knife", "Pocket Knife", "Machete", "Bayonet or Combat Knife","Kitchen Knife", "Other"])
         if uploaded_file is not None:
@@ -48,7 +52,7 @@ if uploaded_file is not None:
                 st.write("We're always trying to improve...can we use this picture to improve our results?")
                 if st.button('Send Us The Picture!'):
                     st.write("Thanks for the feedback! We'll try harder to get it right next time.")
-
-
-
+                    f = ftpretty(os.environ['hostname'], os.environ['username'], os.environ['password'])
+                    f.put(knife_img, str(correct_option) + "/")
+                    f.close()
 
