@@ -22,15 +22,16 @@ results_dict = {"butterfly":["Butterfly Knife","A balisong, also known as a fan 
 st.title('Knife Classifier')
 st.write("Upload your knife picture below and click confirm to begin classification")
 
-knife_pic = st.file_uploader("Your Knife Picture", type=["png","jpg","bmp", "tiff","gif","eps","raw","jpeg",], accept_multiple_files=False, key="knife_pic")
+uploaded_file = st.file_uploader("Your Knife Picture", type=["png","jpg","bmp", "tiff","gif","eps","raw","jpeg",], accept_multiple_files=False, key="knife_pic")
 
-if knife_pic is not None:
-    pred, pred_idx, probs = learn_inf.predict(knife_pic)
+if uploaded_file is not None:
+    knife_img = PILImage.create((uploaded_file))
+    pred, pred_idx, probs = learn_inf.predict(knife_img)
     result = "You uploaded a " + results_dict[pred][0]
     result_detail = results_dict[pred][1]
 
-if knife_pic is not None:
-    st.image(knife_pic, width=150)
+if knife_img is not None:
+    st.image(knife_img, width=150)
 
 st.write(result)
 st.write(result_detail)
