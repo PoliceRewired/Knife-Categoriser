@@ -10,7 +10,7 @@ from fastai.vision.widgets import *
 
 learn_inf = load_learner('export.pkl')
 
-result= "Awaiting Upload"
+result = "Awaiting Upload"
 result_detail = ""
 
 results_dict = {"butterfly":["Butterfly Knife","A balisong, also known as a fan knife, butterfly knife or Batangas knife, is a type of folding pocketknife that originated in the Philippines. Its distinct features are two handles counter-rotating around the tang such that, when closed, the blade is concealed within grooves in the handles."],
@@ -30,7 +30,7 @@ if uploaded_file is not None:
     result = "You uploaded a " + results_dict[pred][0]
     result_detail = results_dict[pred][1]
 
-if knife_img is not None:
+if uploaded_file is not None:
     st.image(knife_img, width=150)
 
 st.write(result)
