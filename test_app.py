@@ -13,11 +13,11 @@ learn_inf = load_learner('export.pkl')
 result = "Awaiting Upload"
 result_detail = ""
 
-results_dict = {"butterfly":["Butterfly Knife","A balisong, also known as a fan knife, butterfly knife or Batangas knife, is a type of folding pocketknife that originated in the Philippines. Its distinct features are two handles counter-rotating around the tang such that, when closed, the blade is concealed within grooves in the handles."],
-                "pocket":["Pocket Knife", "A pocketknife is a foldable knife with one or more blades that fit inside the handle that can still fit in a pocket."],
-               "machete":["Machete", "A machete is a broad blade used either as an agricultural implement similar to an axe, or in combat like a long-bladed knife. The blade is typically 30 to 45 centimetres (12 to 18 in) long and usually under 3 millimetres (0.12 in) thick."],
-               "bayonet":["Bayonet or Combat Knife", "A combat knife is a fighting knife designed solely for military use and primarily intended for hand-to-hand or close combat fighting.[1][2][3]"],
-               "kitchen":["Kitchen knife", "A household knife intended for cooking"]
+results_dict = {"butterfly":["butterfly knife","A balisong, also known as a fan knife, butterfly knife or Batangas knife, is a type of folding pocketknife that originated in the Philippines. Its distinct features are two handles counter-rotating around the tang such that, when closed, the blade is concealed within grooves in the handles."],
+                "pocket":["pocket knife", "A pocketknife is a foldable knife with one or more blades that fit inside the handle that can still fit in a pocket."],
+               "machete":["machete", "A machete is a broad blade used either as an agricultural implement similar to an axe, or in combat like a long-bladed knife."],
+               "bayonet":["bayonet/combat knife", "A combat knife is a fighting knife designed solely for military use and primarily intended for hand-to-hand or close combat fighting."],
+               "kitchen":["kitchen knife", "A household knife intended for cooking."]
 }
 st.title('Knife Classifier')
 st.write("Upload your knife picture below and click confirm to begin classification")
@@ -32,6 +32,23 @@ if uploaded_file is not None:
 
 if uploaded_file is not None:
     st.image(knife_img, width=150)
+    st.write(result)
+    st.write(result_detail)
+    correct_button = str.selectbox("Did we get this right?", ["Yes", "No"])
+    if correct_button == "Yes":
+        st.write("We're always trying to improve...can we use this picture to improve our results?")
+            if st.button('Send Us The Picture!'):
+                st.write("Thanks for the feedback! We'll try harder to get it right next time.")
+    if correct_button == "No":
+        correct_option = st.radio("Oh no! I'm always trying to improve...can you tell me which of the below it was?",["Butterfly Knife", "Pocket Knife", "Machete", "Bayonet or Combat Knife","Kitchen Knife", "Other"])
+        if uploaded_file is not None:
+            if correct_option == "Other":
+                st.write("Sadly, it doesn't look like we recognise these yet, but we're always improving!")
+            else:
+                st.write("We're always trying to improve...can we use this picture to improve our results?")
+                if st.button('Send Us The Picture!'):
+                    st.write("Thanks for the feedback! We'll try harder to get it right next time.")
 
-st.write(result)
-st.write(result_detail)
+
+
+
