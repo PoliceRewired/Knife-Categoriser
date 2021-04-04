@@ -28,7 +28,15 @@ results_dict = {"butterfly":["butterfly knife","A balisong, also known as a fan 
 correct_options_dict = {"Butterfly Knife":"butterfly", "Pocket Knife":"pocket", "Machete":"machete", "Bayonet or Combat Knife":"bayonet", "Kitchen Knife":"kitchen"}
 st.set_page_config(page_title="Knife Classifier")
 st.title('Knife Classifier')
-st.write("Upload your knife picture to begin classification")
+st.markdown('''Welcome to our prototype Knife Classifier. This tool is currently work-in-progress while we train the model, and will be tweaked on a weekly basis or depending on demand. 
+The model is trained on the below categories:
+- Butterfly Knives
+- Folding Pocket Knives
+- Machetes
+- Combat and Bayonet Knives
+- Kitchen Knives ''')
+
+st.write("This model expects pictures single knife pictures, so remove or crop out background items (such as notebooks and rulers)")
 
 uploaded_file = st.file_uploader("Your Knife Picture", type=["png","jpg","bmp", "tiff","gif","eps","raw","jpeg",], accept_multiple_files=False, key="knife_pic")
 
