@@ -1,29 +1,34 @@
 import streamlit as st
-# To make things easier later, we're also importing numpy and pandas for
-# working with sample data.
 import numpy as np
 import pandas as pd
 from fastai.vision.all import *
 from fastai.vision.widgets import *
 import os
-from ftpretty import ftpretty
+from ftplib import FTP
+
+#define our environment variables (secret stuff I don't want on github)
 hostname = os.getenv("hostname")
 username = os.getenv("username")
 password = os.getenv("password")
 
+#import our trained learning mode
 learn_inf = load_learner('export.pkl')
 
 result = "Awaiting Upload"
 result_detail = ""
 
+#couple of dictionaries for later
 results_dict = {"butterfly":["butterfly knife","A balisong, also known as a fan knife, butterfly knife or Batangas knife, is a type of folding pocketknife that originated in the Philippines. Its distinct features are two handles counter-rotating around the tang such that, when closed, the blade is concealed within grooves in the handles."],
                 "pocket":["pocket knife", "A pocketknife is a foldable knife with one or more blades that fit inside the handle that can still fit in a pocket."],
                "machete":["machete", "A machete is a broad blade used either as an agricultural implement similar to an axe, or in combat like a long-bladed knife."],
                "bayonet":["bayonet/combat knife", "A combat knife is a fighting knife designed solely for military use and primarily intended for hand-to-hand or close combat fighting."],
                "kitchen":["kitchen knife", "A household knife intended for cooking."]
 }
+
+correct_options_dict = {"Butterfly Knife":"butterfly", "Pocket Knife":"pocket", "Machete":"machete", "Bayonet or Combat Knife":"bayonet", "Kitchen Knife":"kitchen"}
+st.set_page_config(page_title="Knife Classifier")
 st.title('Knife Classifier')
-st.write("Upload your knife picture below and click confirm to begin classification")
+st.write("Upload your knife picture to begin classification")
 
 uploaded_file = st.file_uploader("Your Knife Picture", type=["png","jpg","bmp", "tiff","gif","eps","raw","jpeg",], accept_multiple_files=False, key="knife_pic")
 
@@ -42,9 +47,9 @@ if uploaded_file is not None:
         st.write("We're always trying to improve...can we use this picture to improve our results?")
         if st.button('Send Us The Picture!'):
             st.write("Thanks for the feedback! We'll try harder to get it right next time.")
-            f = ftpretty(hostname, username, password)
-            f.put(uploaded_file.getbuffer(), str(result) + "/")
-            f.close()
+            with FTP(hostname, username, password) as ftp:
+                ftp.cwd(result)
+                ftp.storbinary(f'STOR {uploaded_file.name}', uploaded_file)
     if correct_button == "No":
         correct_option = st.radio("Oh no! I'm always trying to improve...can you tell me which of the below it was?",["Butterfly Knife", "Pocket Knife", "Machete", "Bayonet or Combat Knife","Kitchen Knife", "Other"])
         if uploaded_file is not None:
@@ -54,8 +59,8 @@ if uploaded_file is not None:
                 st.write("We're always trying to improve...can we use this picture to improve our results?")
                 if st.button('Send Us The Picture!'):
                     st.write("Thanks for the feedback! We'll try harder to get it right next time.")
-                    f = ftpretty(hostname, username, password)
-                    myfile = open(uploaded_file.getbuffer(), 'r')
-                    f.put(myfile, str(correct_option) + "/")
-                    f.close()
+                    with FTP(hostname, username, password) as ftp:
+                        ftp.cwd(correct_options_dict[correct_option])
+                        ftp.storbinary(f'STOR {uploaded_file.name}', uploaded_file)
+
 
