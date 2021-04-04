@@ -26,7 +26,7 @@ results_dict = {"butterfly":["butterfly knife","A balisong, also known as a fan 
 }
 
 correct_options_dict = {"Butterfly Knife":"butterfly", "Pocket Knife":"pocket", "Machete":"machete", "Bayonet or Combat Knife":"bayonet", "Kitchen Knife":"kitchen"}
-st.set_page_config(page_title="Knife Classifier")
+st.set_page_config(page_title="Knife Classifier", page_icon="🔪")
 st.title('Knife Classifier')
 st.markdown('''Welcome to our prototype Knife Classifier. This tool is currently work-in-progress while we train the model, and will be tweaked on a weekly basis or depending on demand. 
 The model is trained on the below categories:
