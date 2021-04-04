@@ -29,14 +29,14 @@ correct_options_dict = {"Butterfly Knife":"butterfly", "Pocket Knife":"pocket", 
 st.set_page_config(page_title="Knife Classifier", page_icon="🔪")
 st.title('Knife Classifier')
 st.markdown('''Welcome to our prototype Knife Classifier. This tool is currently work-in-progress while we train the model, and will be tweaked on a weekly basis or depending on demand. 
-The model is trained on the below categories:
+The model is trained to recognise the below categories:
 - Butterfly Knives
 - Folding Pocket Knives
 - Machetes
 - Combat and Bayonet Knives
 - Kitchen Knives ''')
 
-st.write("This model expects pictures single knife pictures, so remove or crop out background items (such as notebooks and rulers)")
+st.write("This model expects pictures of *individual* knives, so remove or crop out background items (such as notebooks and rulers)")
 
 uploaded_file = st.file_uploader("Your Knife Picture", type=["png","jpg","bmp", "tiff","gif","eps","raw","jpeg",], accept_multiple_files=False, key="knife_pic")
 
