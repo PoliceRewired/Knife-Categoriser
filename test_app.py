@@ -56,7 +56,7 @@ if uploaded_file is not None:
         if st.button('Send Us The Picture!'):
             st.write("Thanks for the feedback! We'll try harder to get it right next time.")
             with FTP(hostname, username, password) as ftp:
-                ftp.cwd(result)
+                ftp.cwd(pred)
                 ftp.storbinary(f'STOR {uploaded_file.name}', uploaded_file)
     if correct_button == "No":
         correct_option = st.radio("Oh no! I'm always trying to improve...can you tell me which of the below it was?",["Butterfly Knife", "Pocket Knife", "Machete", "Bayonet or Combat Knife","Kitchen Knife", "Other"])
